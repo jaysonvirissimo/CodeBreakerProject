@@ -6,4 +6,11 @@ function guess() {
     //add functionality to guess function here
 }
 
-//implement new functions here
+function setHiddenFields() {
+  answer.value = generateCode();
+}
+
+function generateCode(numberOfDigits) {
+  numberOfDigits = numberOfDigits || 4;
+  return Math.random().toString().slice(2, 2 + numberOfDigits);
+}
