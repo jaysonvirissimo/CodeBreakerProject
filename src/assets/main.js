@@ -9,6 +9,12 @@ function generateCode(numberOfDigits) {
 function guess() {
     let input = document.getElementById('user-guess');
 
+    if (validateInput(input.value)) {
+      attempt.value++;
+    } else {
+      return false;
+    }
+
     if (answer.value == '' || attempt.value == '') {
       setHiddenFields();
     }
@@ -22,4 +28,13 @@ function setHiddenFields() {
 function setMessage(message) {
   let label = document.getElementById('message');
   label.innerHTML = message;
+}
+
+function validateInput(input) {
+  if (input.length == 4) {
+    return true;
+  } else {
+    setMessage('Guesses must be exactly 4 characters long.');
+    return false;
+  }
 }
