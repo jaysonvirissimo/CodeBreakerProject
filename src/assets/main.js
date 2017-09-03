@@ -9,8 +9,8 @@ function digitsMatch(first, second) {
   }
 }
 
-function generateCode(numberOfDigits) {
-  numberOfDigits = numberOfDigits || 4;
+function generateCode() {
+  let numberOfDigits = 4;
   return Math.random().toString().slice(2, 2 + numberOfDigits);
 }
 
@@ -38,17 +38,20 @@ function getResults(input) {
 }
 
 function guess() {
-    let input = document.getElementById('user-guess');
+  let userGuess = document.getElementById('user-guess');
+  if (answer.value == '' || attempt.value == '') { setHiddenFields(); }
+  if (!validateInput(userGuess.value)) { return false; }
 
-    if (validateInput(input.value)) {
-      attempt.value++;
-    } else {
-      return false;
-    }
+  attempt.value++;
+  let result = getResults(userGuess.value);
 
-    if (answer.value == '' || attempt.value == '') {
-      setHiddenFields();
-    }
+  if (result) {
+    setMessage('You Win! :)');
+  } else if (attempt.value >= 10) {
+    setMessage('You Lose! :(');
+  } else {
+    setMessage('Incorrect, try again.');
+  }
 }
 
 function setHiddenFields() {
@@ -56,16 +59,12 @@ function setHiddenFields() {
   attempt.value = 0;
 }
 
-function setMessage(message) {
-  let label = document.getElementById('message');
-  label.innerHTML = message;
+function setMessage(newMessage) {
+  document.getElementById('message').innerHTML = newMessage;
 }
 
-function validateInput(input) {
-  if (input.length == 4) {
-    return true;
-  } else {
-    setMessage('Guesses must be exactly 4 characters long.');
-    return false;
-  }
+function validateInput(inputToValidate) {
+  if (inputToValidate.length === 4) { return true; }
+  setMessage('Guesses must be exactly 4 characters long.');
+  return false;
 }
