@@ -63,6 +63,13 @@ function setMessage(newMessage) {
   document.getElementById('message').innerHTML = newMessage;
 }
 
+function showAnswer(won) {
+  let code = document.getElementById('code');
+  let newClass = won ? ' success' : ' failure';
+  code.innerHTML = answer.value;
+  code.className = newClass;
+}
+
 function validateInput(inputToValidate) {
   if (inputToValidate.length === 4) { return true; }
   setMessage('Guesses must be exactly 4 characters long.');
