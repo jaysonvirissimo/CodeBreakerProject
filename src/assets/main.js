@@ -47,8 +47,12 @@ function guess() {
 
   if (result) {
     setMessage('You Win! :)');
+    showAnswer(true);
+    showReplay();
   } else if (attempt.value >= 10) {
     setMessage('You Lose! :(');
+    showAnswer(false);
+    showReplay();
   } else {
     setMessage('Incorrect, try again.');
   }
@@ -68,6 +72,11 @@ function showAnswer(won) {
   let newClass = won ? ' success' : ' failure';
   code.innerHTML = answer.value;
   code.className = newClass;
+}
+
+function showReplay() {
+  document.getElementById('guessing-div').style.display = 'none';
+  document.getElementById('replay-div').style.display = 'block';
 }
 
 function validateInput(inputToValidate) {
